@@ -1,8 +1,12 @@
 <template>
 	<div>
-		<chessboard :showThreats="true" @onMove="showInfo" />
-		<div>
-			<p class="p">{{ this.positionInfo }}</p>
+		<div class="contenedor">
+			<chessboard :showThreats="true" @onMove="showInfo" />
+			<div class="p">
+				<p>
+					{{ this.positionInfo }}
+				</p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -16,13 +20,13 @@ import "vue-chessboard/dist/vue-chessboard.css";
 export default {
 	data() {
 		return {
-			positionInfo: "",
+			positionInfo: 1,
 		};
 	},
 	components: { chessboard },
 	methods: {
 		showInfo(data) {
-			this.positionInfo = data;
+			this.positionInfo = data.history.join(" → ");
 		},
 	},
 };
@@ -36,5 +40,37 @@ body {
 }
 .p {
 	color: white;
+	font-size: 2rem;
+	background: black;
+
+	height: 555px;
+	padding: 1.5rem;
+	margin-top: 2rem;
+	margin-left: 3rem;
+	margin-right: 2rem;
+}
+.contenedor {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 100%;
+}
+.cg-board-wrap {
+	margin-right: 0;
+}
+@media (max-width: 1000px) {
+	.contenedor {
+		display: grid;
+		grid-template-columns: 100%;
+		grid-template-rows: repeat(2, 1fr);
+	}
+	.p {
+		width: 90%;
+		height: 30rem;
+		margin: 2rem auto;
+		padding: 1rem;
+	}
+	.cg-board-wrap {
+		margin: 0 auto;
+	}
 }
 </style>

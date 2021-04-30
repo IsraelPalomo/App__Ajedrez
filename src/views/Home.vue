@@ -1,12 +1,19 @@
 <template>
 	<div>
 		<div class="contenedor">
-			<chessboard :showThreats="true" @onMove="showInfo" />
+			<chessboard :showThreats="true" @onMove="showInfo" :orientation="color" />
+
 			<div class="p">
+				<h4>Historial De Partidas</h4>
 				<p>
 					{{ this.positionInfo }}
 				</p>
 			</div>
+		</div>
+		<div class="botones">
+			<button class="btn btn1" @click="color = 'black'">Cambiar Posicion a negras</button>
+			<button class="btn btn2" @click="color = 'white'">Cambiar Posicion a blancas</button>
+			<button class="btn btn3" @click="recargarPagina()">Volver a la posicion inicial</button>
 		</div>
 	</div>
 </template>
@@ -21,12 +28,16 @@ export default {
 	data() {
 		return {
 			positionInfo: 1,
+			color: "white",
 		};
 	},
 	components: { chessboard },
 	methods: {
 		showInfo(data) {
 			this.positionInfo = data.history.join(" → ");
+		},
+		recargarPagina() {
+			location.reload();
 		},
 	},
 };
@@ -42,12 +53,16 @@ body {
 	color: white;
 	font-size: 2rem;
 	background: black;
-
+	border: 10px solid rgb(80, 12, 143);
 	height: 555px;
 	padding: 1.5rem;
 	margin-top: 2rem;
 	margin-left: 3rem;
 	margin-right: 2rem;
+}
+.p h4 {
+	text-align: center;
+	margin-top: 10px;
 }
 .contenedor {
 	display: grid;
@@ -72,5 +87,36 @@ body {
 	.cg-board-wrap {
 		margin: 0 auto;
 	}
+}
+.btn {
+	width: 15rem;
+	height: 3rem;
+	border-radius: 25px;
+	margin: 1rem;
+	font-size: 1rem;
+	text-align: center;
+	border: none;
+}
+.btn1 {
+	background: black;
+	color: white;
+}
+.btn1:hover {
+	background: rgb(87, 86, 86);
+}
+.btn2:hover {
+	background: rgb(179, 178, 178);
+}
+.btn3 {
+	background: rgb(80, 12, 143);
+	color: white;
+}
+.btn3:hover {
+	background: rgb(56, 6, 104);
+}
+.botones {
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
 }
 </style>
